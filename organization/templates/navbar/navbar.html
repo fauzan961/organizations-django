@@ -1,0 +1,57 @@
+<nav>
+    <style>
+        /* Styling for the navbar */
+        nav {
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* Align navbar items to the right */
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            margin: 0 15px; /* Space between each navbar item */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0px 15px; /* Space around the text */
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3; /* Add hover effect */
+            border-radius: 4px; /* Optional: adds rounded corners on hover */
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+    <ul class="navbar">
+        <li><a href="{% url 'user_management' %}">Users</a></li>
+        <li><a href="{% url 'organization_list' %}">Organizations</a></li>
+        <li>
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </li>
+    </ul>
+</nav>

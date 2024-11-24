@@ -1,0 +1,8 @@
+{% include 'navbar/navbar.html' %}
+
+<h1>Create Organization</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>

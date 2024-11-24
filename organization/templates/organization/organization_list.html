@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizations</title>
+    <style>
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .org-lists {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .org-sections {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .org-sections span {
+            flex-grow: 1;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-button,
+        .actions button {
+            text-decoration: none;
+            font-size: 14px;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+        }
+
+        .actions button {
+            background-color: #dc3545;
+        }
+
+        .actions edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .actions button:hover {
+            background-color: #a71d2a;
+        }
+
+        .create-link {
+            display: block;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .create-link a {
+            text-decoration: none;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .create-link a:hover {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar/navbar.html' %}
+    
+    <h1>Organizations</h1>
+    <ul class="org-lists">
+        {% for org in organizations %}
+        <li class="org-sections">
+            <span>{{ org.name }}</span>
+            {% if can_create_organization %}
+            <div class="actions">
+                <a class="edit-button" href="{% url 'organization_update' org.id %}">Edit</a>
+                <form action="{% url 'organization_delete' org.id %}" method="post" style="margin: 0;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this organization?');">Delete</button>
+                </form>
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    
+    {% if can_create_organization %}
+    <div class="create-link">
+        <a class="create-button" href="{% url 'organization_create' %}">Create Organization</a>
+    </div>
+    {% endif %}
+</body>
+</html>
